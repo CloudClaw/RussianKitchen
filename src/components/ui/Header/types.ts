@@ -1,3 +1,4 @@
+import { Session } from "next-auth";
 import { Dispatch, SetStateAction } from "react";
 
 export interface IHeaderLinks {
@@ -12,4 +13,6 @@ export interface IUseHeader {
 	isLoginOpen: boolean;
 	setIsLoginOpen: Dispatch<SetStateAction<boolean>>;
 	handleSignOut: () => Promise<void>;
+	isAuth: boolean;
+	session: Session | null;
 }

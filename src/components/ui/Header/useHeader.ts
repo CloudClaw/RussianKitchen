@@ -8,10 +8,10 @@ export const useHeader = (): IUseHeader => {
 	const pathname = usePathname();
 	const { data: session, status} = useSession();
 
-	console.log(session, status);
-
 	const [isRegistrationOpen, setIsRegistrationOpen] = useState<boolean>(false);
 	const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
+
+	const isAuth = status === "authenticated";
 
 	const handleSignOut = async () => {
 		await signOutFn();
@@ -23,6 +23,8 @@ export const useHeader = (): IUseHeader => {
 		setIsRegistrationOpen,
 		isLoginOpen,
 		setIsLoginOpen,
-		handleSignOut
+		handleSignOut,
+		isAuth,
+		session
 	};
 };

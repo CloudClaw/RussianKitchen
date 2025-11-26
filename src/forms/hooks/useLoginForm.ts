@@ -14,20 +14,21 @@ interface IUseLoginFormReturn {
 interface IFormData {
 	email: string;
 	password: string;
-	confirmPassword: string;
 }
 
 export const useLoginForm = ({ onClose }: IUseLoginFormProps): IUseLoginFormReturn => {
 	const [formData, setFormData] = useState<IFormData>({
 		email: "",
 		password: "",
-		confirmPassword: "",
 	});
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		const result = await signInWithCredentials(formData.password, formData.email);
-		console.log(result);
+
+		await signInWithCredentials(formData.email, formData.password);
+
+		window.location.reload();
+
 		onClose();
 	};
 

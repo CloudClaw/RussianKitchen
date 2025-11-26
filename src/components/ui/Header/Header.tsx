@@ -14,8 +14,16 @@ export const Logo = () => {
 };
 
 export default function Header() {
-	const { pathname, isLoginOpen, setIsLoginOpen, isRegistrationOpen, setIsRegistrationOpen, handleSignOut } =
-		useHeader();
+	const {
+		pathname,
+		isLoginOpen,
+		setIsLoginOpen,
+		isRegistrationOpen,
+		setIsRegistrationOpen,
+		handleSignOut,
+		isAuth,
+		session,
+	} = useHeader();
 
 	const getNavItems = () => {
 		return SiteConfig.headerLinks.map((link) => {
@@ -52,27 +60,34 @@ export default function Header() {
 				{getNavItems()}
 			</NavbarContent>
 			<NavbarContent justify="end">
-				<NavbarItem className="hidden lg:flex">
-					<Button as={Link} href="#" variant="flat" onPress={() => setIsLoginOpen(true)}>
-						Войти
-					</Button>
-				</NavbarItem>
-				<NavbarItem className="hidden lg:flex">
-					<Button as={Link} href="#" variant="flat" onPress={handleSignOut}>
-						Выйти
-					</Button>
-				</NavbarItem>
-				<NavbarItem className="hidden lg:flex">
-					<Button
-						as={Link}
-						color="primary"
-						href="#"
-						variant="flat"
-						onPress={() => setIsRegistrationOpen(true)}
-					>
-						Зарегистрироваться
-					</Button>
-				</NavbarItem>
+				{isAuth && `Привет, ${(session?.user?.email as string).split("@")[0]}`}
+				{isAuth && (
+					<NavbarItem className="hidden lg:flex">
+						<Button as={Link} href="#" variant="flat" onPress={handleSignOut}>
+							Выйти
+						</Button>
+					</NavbarItem>
+				)}
+				{!isAuth && (
+					<>
+						<NavbarItem className="hidden lg:flex">
+							<Button as={Link} href="#" variant="flat" onPress={() => setIsLoginOpen(true)}>
+								Войти
+							</Button>
+						</NavbarItem>
+						<NavbarItem className="hidden lg:flex">
+							<Button
+								as={Link}
+								color="primary"
+								href="#"
+								variant="flat"
+								onPress={() => setIsRegistrationOpen(true)}
+							>
+								Зарегистрироваться
+							</Button>
+						</NavbarItem>
+					</>
+				)}
 			</NavbarContent>
 
 			<RegistrationModal isOpen={isRegistrationOpen} onClose={() => setIsRegistrationOpen(false)} />

@@ -3,16 +3,15 @@
 import { signIn } from "@/auth/auth";
 
 export async function signInWithCredentials(email: string, password: string) {
+	console.log(email, password);
 	try {
-		const result = await signIn("credentials", {
+		await signIn("credentials", {
 			email,
 			password,
 			redirect: false,
 		});
-		if (result?.error) {
-			throw new Error(result.error);
-		}
-		return result;
+
+		return;
 	} catch (error) {
 		console.error("Error signing in:", error);
 	}
