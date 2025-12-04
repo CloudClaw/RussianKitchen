@@ -7,6 +7,8 @@ import { SiteConfig } from "@/config/site.config";
 import Header from "@/components/ui/Header/Header";
 import { layoutConfig } from "@/config/layout.config";
 import { ServerProvider } from "@/providers/ServerProvider";
+import AppLoader from "@/hocs/app-loader";
+import HeaderTitle from "@/components/ui/HeaderTitle/HeaderTitle";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -33,23 +35,26 @@ export default function RootLayout({
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<ServerProvider>
 					<ClientProvider>
-						<Header />
-						<main
-							className={`flex flex-col w-full justify-start items-center`}
-							style={{
-								height: `calc(100vh - ${layoutConfig.footerHeight} - ${layoutConfig.headerHeight})`,
-							}}
-						>
-							{children}
-						</main>
-						<footer
-							className={`flex justify-center items-center`}
-							style={{
-								height: layoutConfig.footerHeight,
-							}}
-						>
-							<p>{SiteConfig.description}</p>
-						</footer>
+						<AppLoader>
+							<Header />
+							<HeaderTitle />
+							<main
+								className={`flex flex-col max-w-[1024px] mx-auto px-[24px] justify-start items-center`}
+								style={{
+									height: `calc(100vh - ${layoutConfig.footerHeight} - ${layoutConfig.headerHeight})`,
+								}}
+							>
+								{children}
+							</main>
+							<footer
+								className={`flex justify-center items-center`}
+								style={{
+									height: layoutConfig.footerHeight,
+								}}
+							>
+								<p>{SiteConfig.description}</p>
+							</footer>
+						</AppLoader>
 					</ClientProvider>
 				</ServerProvider>
 			</body>

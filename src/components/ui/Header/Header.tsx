@@ -4,7 +4,7 @@ import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/
 import Image from "next/image";
 import Link from "next/link";
 import { SiteConfig } from "@/config/site.config";
-import { useHeader } from "./useHeader";
+import { useHeader } from "./hooks/useHeader";
 import { layoutConfig } from "@/config/layout.config";
 import RegistrationModal from "../modals/RegistrationModal";
 import LoginModal from "../modals/LoginModal";
@@ -23,6 +23,7 @@ export default function Header() {
 		handleSignOut,
 		isAuth,
 		session,
+		status,
 	} = useHeader();
 
 	const getNavItems = () => {
@@ -33,13 +34,12 @@ export default function Header() {
 					<Link
 						href={link.href}
 						className={`px-3 py-1 
-							${isActive ? "text-blue-500" : "text-foreground"}
-							hover:text-blue-500 hover:border
-							hover:border-blue-300 hover:rounded-md
-							transition-colors
-							transition-border
-							dureation-200
-							`}
+						${isActive ? "text-blue-500" : "text-foreground"}
+						hover:text-blue-500 hover:border
+						hover:border-blue-300 hover:rounded-md
+						transition-colors
+						transition-border
+						dureation-200`}
 					>
 						{link.label}
 					</Link>
@@ -59,19 +59,24 @@ export default function Header() {
 			<NavbarContent className="hidden sm:flex gap-4" justify="center">
 				{getNavItems()}
 			</NavbarContent>
+
 			<NavbarContent justify="end">
 				{isAuth && `Привет, ${(session?.user?.email as string).split("@")[0]}`}
-				{isAuth && (
-					<NavbarItem className="hidden lg:flex">
-						<Button as={Link} href="#" variant="flat" onPress={handleSignOut}>
-							Выйти
-						</Button>
-					</NavbarItem>
+				{status === "loading" ? (
+					<p>Загрузка...</p>
+				) : (
+					isAuth && (
+						<NavbarItem className="hidden lg:flex">
+							<Button as={Link} color="secondary" href="#" variant="flat" onPress={handleSignOut}>
+								Выйти
+							</Button>
+						</NavbarItem>
+					)
 				)}
 				{!isAuth && (
 					<>
 						<NavbarItem className="hidden lg:flex">
-							<Button as={Link} href="#" variant="flat" onPress={() => setIsLoginOpen(true)}>
+							<Button as={Link} href="#" color="secondary" variant="flat" onPress={() => setIsLoginOpen(true)}>
 								Войти
 							</Button>
 						</NavbarItem>

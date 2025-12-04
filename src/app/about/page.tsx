@@ -1,7 +1,9 @@
+import PageContent from "@/components/common/PageContent";
+
 const About = () => {
 	return (
 		<div>
-			<h1>About</h1>
+			<PageContent />
 		</div>
 	);
 };

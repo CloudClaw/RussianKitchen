@@ -1,0 +1,1 @@
+export type TSessionStatus = "authenticated" | "unauthenticated" | "loading";

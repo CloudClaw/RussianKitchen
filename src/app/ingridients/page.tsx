@@ -1,7 +1,11 @@
+"use client";
+
+import IngridientForm from "@/forms/IngridientForm/IngridientForm";
+
 const Ingridients = () => {
 	return (
 		<div>
-			<h1>Ingridients</h1>
+			<IngridientForm />
 		</div>
 	);
 };

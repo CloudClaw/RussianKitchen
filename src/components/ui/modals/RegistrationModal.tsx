@@ -1,7 +1,7 @@
 "use client";
 
 import CustomModal from "@/components/common/modal";
-import RegistrationForm from "@/forms/RegistrationForm";
+import RegistrationForm from "@/forms/RegistrationForm/RegistrationForm";
 
 interface IProps {
 	isOpen: boolean;

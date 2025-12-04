@@ -1,21 +1,26 @@
 import { usePathname } from "next/navigation";
-import { IUseHeader } from "./types";
+import { IUseHeader } from "../types";
 import { useState } from "react";
 import { signOutFn } from "@/actions/signOut";
-import { useSession } from "next-auth/react";
+import { useAuthStore } from "@/store/auth.store";
 
 export const useHeader = (): IUseHeader => {
 	const pathname = usePathname();
-	const { data: session, status} = useSession();
+
+	const { isAuth, status, session, setAuthState } = useAuthStore();
 
 	const [isRegistrationOpen, setIsRegistrationOpen] = useState<boolean>(false);
 	const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
 
-	const isAuth = status === "authenticated";
-
 	const handleSignOut = async () => {
-		await signOutFn();
-	}
+		try {
+			await signOutFn();
+		} catch (error) {
+			console.log("error", error);
+		} finally {
+			setAuthState("unauthenticated", null);
+		}
+	};
 
 	return {
 		pathname,
@@ -25,6 +30,7 @@ export const useHeader = (): IUseHeader => {
 		setIsLoginOpen,
 		handleSignOut,
 		isAuth,
-		session
+		session,
+		status
 	};
 };

@@ -1,3 +1,4 @@
+import { TSessionStatus } from "@/store/types";
 import { Session } from "next-auth";
 import { Dispatch, SetStateAction } from "react";
 
@@ -15,4 +16,5 @@ export interface IUseHeader {
 	handleSignOut: () => Promise<void>;
 	isAuth: boolean;
 	session: Session | null;
+	status: TSessionStatus;
 }
