@@ -6,7 +6,7 @@ import { Button, Form, Input, Select, SelectItem } from "@heroui/react";
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from "@/constants/select-options";
 
 const IngridientForm = () => {
-	const { error, ingridient, setIngridient, handleSubmit } = useIngridientForm();
+	const { error, ingridient, setIngridient, handleSubmit, isPending } = useIngridientForm();
 
 	return (
 		<Form className="w-full" action={handleSubmit}>
@@ -115,7 +115,7 @@ const IngridientForm = () => {
 			/>
 
 			<div className="flex w-full items-center justify-end">
-				<Button color="primary" type="submit">
+				<Button color="primary" type="submit" isLoading={isPending}>
 					Добавить ингредиент
 				</Button>
 			</div>

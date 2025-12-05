@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { IIngridient, IReturnUseIngridient } from "../types";
-import { createIngridient } from "@/actions/ingridient";
+import React, { useState, useTransition } from "react";
+import { IIngredient, IReturnUseIngridient } from "../types";
+import { createIngredient } from "@/actions/ingridient";
+import { useIngredientStore } from "@/store/ingredient.store";
 
 const defaultState = {
 	name: "",
@@ -11,26 +12,33 @@ const defaultState = {
 } as const;
 
 const useIngridientForm = (): IReturnUseIngridient => {
-	const [ingridient, setIngridient] = useState<IIngridient>(defaultState);
+	const { addIngredient } = useIngredientStore();
+
+	const [isPending, startTransition] = useTransition();
+	const [ingridient, setIngridient] = useState<IIngredient>(defaultState);
 	const [error, setError] = useState<string | null>(null);
 
 	const handleSubmit = async (formData: FormData) => {
-		const result = await createIngridient(formData);
+		startTransition(async () => {
+			await addIngredient(formData);
+			const error = useIngredientStore.getState().error;
 
-		if (result?.error) {
-			setError(result.error);
-		} else {
-			setError(null);
-		}
+			if (error) {
+				setError(error);
+			} else {
+				setError(null);
+			}
 
-		setIngridient(defaultState);
+			setIngridient(defaultState);
+		});
 	};
 
 	return {
-    error,
+		error,
 		ingridient,
 		setIngridient,
 		handleSubmit,
+		isPending,
 	};
 };
 
