@@ -68,7 +68,7 @@ model VerificationToken {
   @@map("verification_tokens")
 }
 
-model Ingridient {
+model Ingredient {
   id           String   @id @default(uuid())
   name         String
   category     Category
@@ -76,10 +76,34 @@ model Ingridient {
   pricePerUnit Float?
   description  String?
 
+  recipes RecipeIngredient[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("ingridients")
+  @@map("ingredients")
+}
+
+model Recipe {
+  id          String  @id @default(uuid())
+  name        String
+  description String
+  imageUrl    String? @map("image_url")
+
+  ingredients RecipeIngredient[]
+
+  @@map("recipes")
+}
+
+model RecipeIngredient {
+  id           String     @id @default(uuid())
+  recipe       Recipe     @relation(fields: [recipeId], references: [id])
+  recipeId     String
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId String
+  quantity     Float
+
+  @@map("recipe_ingredient")
 }
 
 enum Category {

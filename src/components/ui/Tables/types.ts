@@ -1,4 +1,4 @@
-import { IDbIngredient } from "@/forms/IngridientForm/types";
+import { IDbIngredient } from "@/forms/IngredientForm/types";
 
 export interface IUseTableIngredientsReturn {
 	ingredients: IDbIngredient[];

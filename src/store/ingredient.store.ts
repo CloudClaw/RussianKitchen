@@ -1,5 +1,5 @@
 import { createIngredient, deleteIngredient, getIngredient } from "@/actions/ingridient";
-import { IDbIngredient } from "@/forms/IngridientForm/types";
+import { IDbIngredient } from "@/forms/IngredientForm/types";
 import { create } from "zustand";
 
 interface IIngredientState {

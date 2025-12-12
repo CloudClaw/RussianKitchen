@@ -11,7 +11,7 @@ const defaultState = {
 	description: "",
 } as const;
 
-const useIngridientForm = (): IReturnUseIngridient => {
+const useIngredientForm = (): IReturnUseIngridient => {
 	const { addIngredient } = useIngredientStore();
 
 	const [isPending, startTransition] = useTransition();
@@ -42,4 +42,4 @@ const useIngridientForm = (): IReturnUseIngridient => {
 	};
 };
 
-export default useIngridientForm;
+export default useIngredientForm;

@@ -27,25 +27,32 @@ export default function Header() {
 	} = useHeader();
 
 	const getNavItems = () => {
-		return SiteConfig.headerLinks.map((link) => {
-			const isActive = pathname === link.href;
-			return (
-				<NavbarItem key={link.label}>
-					<Link
-						href={link.href}
-						className={`px-3 py-1 
+		return SiteConfig.headerLinks
+			.filter((link) => {
+				if (link.href === "/ingridients") {
+					return isAuth;
+				}
+				return true;
+			})
+			.map((link) => {
+				const isActive = pathname === link.href;
+				return (
+					<NavbarItem key={link.label}>
+						<Link
+							href={link.href}
+							className={`px-3 py-1 
 						${isActive ? "text-blue-500" : "text-foreground"}
 						hover:text-blue-500 hover:border
 						hover:border-blue-300 hover:rounded-md
 						transition-colors
 						transition-border
 						dureation-200`}
-					>
-						{link.label}
-					</Link>
-				</NavbarItem>
-			);
-		});
+						>
+							{link.label}
+						</Link>
+					</NavbarItem>
+				);
+			});
 	};
 
 	return (
@@ -76,7 +83,13 @@ export default function Header() {
 				{!isAuth && (
 					<>
 						<NavbarItem className="hidden lg:flex">
-							<Button as={Link} href="#" color="secondary" variant="flat" onPress={() => setIsLoginOpen(true)}>
+							<Button
+								as={Link}
+								href="#"
+								color="secondary"
+								variant="flat"
+								onPress={() => setIsLoginOpen(true)}
+							>
 								Войти
 							</Button>
 						</NavbarItem>

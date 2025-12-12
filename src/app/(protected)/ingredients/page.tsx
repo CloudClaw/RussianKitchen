@@ -1,12 +1,12 @@
 "use client";
 
 import IngredientsTable from "@/components/ui/Tables/Ingredients";
-import IngridientForm from "@/forms/IngridientForm/IngridientForm";
+import IngredientForm from "@/forms/IngridientForm/IngridientForm";
 
 const Ingridients = () => {
 	return (
 		<div>
-			<IngridientForm />
+			<IngredientForm />
 			<IngredientsTable />
 		</div>
 	);

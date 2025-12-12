@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import useIngridientForm from "./hooks/useIngridientForm";
+import useIngredientForm from "./hooks/useIngredientForm";
 import { Button, Form, Input, Select, SelectItem } from "@heroui/react";
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from "@/constants/select-options";
 
-const IngridientForm = () => {
-	const { error, ingridient, setIngridient, handleSubmit, isPending } = useIngridientForm();
+const IngredientForm = () => {
+	const { error, ingridient, setIngridient, handleSubmit, isPending } = useIngredientForm();
 
 	return (
 		<Form className="w-full" action={handleSubmit}>
@@ -123,4 +123,4 @@ const IngridientForm = () => {
 	);
 };
 
-export default IngridientForm;
+export default IngredientForm;
