@@ -16,7 +16,7 @@ export interface IRecipeIngredient {
 export interface IRecipe {
 	id: string;
 	name: string;
-	description: string;
+	description: string | null;
 	ingredients: IRecipeIngredient[];
 	imageUrl?: string;
 }

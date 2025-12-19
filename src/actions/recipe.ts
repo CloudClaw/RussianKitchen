@@ -1,6 +1,8 @@
+"use server";
+
 import { prisma } from "@/utils/prisma";
 
-export async function getRecipies() {
+export async function getRecipes() {
 	try {
 		const recipes = await prisma.recipe.findMany({
 			include: {

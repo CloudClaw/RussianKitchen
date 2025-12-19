@@ -4,9 +4,9 @@ import { NextRequest, NextResponse } from "next/server";
 export async function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 	const token = await getToken({ req: request });
-	const protectedRoutes = ["/ingredients"];
+	const protectedRoutes = ["/ingredients", "/recipes/new", "/recipes/:path*"];
 
-	if (protectedRoutes.some((route) => pathname.startsWith(route))) {
+	if (protectedRoutes.some((route) => pathname.startsWith(route.replace(":path*", "")))) {
 		if (!token) {
 			const url = new URL("/global-error", request.url);
 			url.searchParams.set("message", "Недостаточно прав");
@@ -18,5 +18,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-	matcher: ["/ingredients"],
+	matcher: ["/ingredients", "/recipes/new", "/recipes/:path"],
 };
